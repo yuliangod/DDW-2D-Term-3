@@ -19,7 +19,7 @@ def create_json(predictor_name):
     df2 = df2.to_json(orient = 'records')
     return df2
 
-@app.route("/")
+@app.route("/", methods=('GET', 'POST'))
 @app.route("/index", methods=('GET', 'POST'))
 def index():
     form = CreateQuestionForm()
@@ -33,6 +33,15 @@ def index():
         pred = -37201.01142 + 61.36965642*methane + 47.00918803*nitrous_oxide + -103.4736757*precipitation + 311.0397424*temperature
         print(pred)
     return render_template("index.html", form=form, pred= pred)
+
+@app.route("/info")
+def info():
+    B0 = -37201.01142
+    B1 = 61.36965642
+    B2 = 47.00918803
+    B3 = -103.4736757
+    B4 = 311.0397424
+    return render_template("info.html", B0=B0, B1=B1, B2=B2, B3=B3, B4=B4)
 
 @app.route("/methane")
 def methane():
