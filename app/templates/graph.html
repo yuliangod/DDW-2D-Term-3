@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block app_content %}
+<div>
+    <p class="lead">Shown below is the graph for {{name}} against crop yield</p>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+    type: 'scatter',
+    data: {
+    datasets: [{
+        label: 'Crop yield against {{ name }}',
+        data: {{ data | safe }},
+        borderWidth: 1
+    }]
+    },
+    options: {
+    scales: {
+        y: {
+        beginAtZero: true
+        }
+    }
+    }
+});
+</script>
+{% endblock %}
